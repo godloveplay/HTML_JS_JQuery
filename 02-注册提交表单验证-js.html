@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        //三个框 得到焦点 onfocus 绿色文字提示
+        //       失去焦点 onblur 红色校验提醒
+        window.onload = function () {
+            var email = document.getElementById('name');
+            var pwd = document.getElementById('pwd');
+            var re_pwd = document.getElementById('repwd');
+            var resetBtn = document.getElementById('resetBtn');
+
+            resetBtn.onclick = function () {
+                document.getElementById('note1').innerHTML = null;
+                document.getElementById('note2').innerHTML = null;
+                document.getElementById('note3').innerHTML = null;
+            };
+            email.onfocus = function () {
+                var span = document.getElementById('note1');
+                span.innerHTML = '<font color="green">绿色提示</font>';
+            };
+            email.onblur = function () {
+                var span = document.getElementById('note1');
+                span.innerHTML = null;
+                emailT(email, span);
+
+            };
+
+            pwd.onfocus = function () {
+                var span = document.getElementById('note2');
+                span.innerHTML = '<font color="green">六位数字</font>';
+            };
+            pwd.onblur = function () {
+                var span = document.getElementById('note2');
+                span.innerHTML = null;
+                pwdT(pwd, span);
+
+            };
+
+
+            re_pwd.onfocus = function () {
+                var span = document.getElementById('note3');
+                span.innerHTML = '<font color="green">确认密码</font>';
+            };
+
+            re_pwd.onblur = function () {
+                var span = document.getElementById('note3');
+                span.innerHTML = null;
+                rePwd(re_pwd, span);
+
+            };
+
+
+        };
+
+
+        function checkout() {
+            alert("diaole")
+            var span1 = document.getElementById('note1');
+            console.log(span1);
+            var span2 = document.getElementById('note2');
+            var span3 = document.getElementById('note3');
+            if (rePwd(re_pwd, span3) && pwdT(pwd, span2) && emailT(email, span1)) {
+                alert("true");
+                return true;
+            }
+            alert("false");
+            return false;
+        }
+
+        function emailT(email, span) {
+            if (email.value != "") {
+                if (emailFormat(email.value)) {
+                    span.innerHTML = '<font color="green">OK</font>';
+                    return true;
+                } else {
+                    span.innerHTML = '<font color="red">格式不正确</font>';
+                    return false;
+                }
+            } else {
+                span.innerHTML = '<font color="red">不能为空</font>';
+                return false;
+            }
+        }
+
+        function pwdT(pwd, span) {
+            if (pwd.value != "") {
+                if (pwdFormat(pwd.value)) {
+                    span.innerHTML = '<font color="green">OK</font>';
+                    return true;
+                } else {
+                    span.innerHTML = '<font color="red">格式不正确</font>';
+                    return false;
+                }
+            } else {
+                span.innerHTML = '<font color="red">不能为空</font>';
+                return false;
+            }
+        }
+
+        function rePwd(re_pwd, span) {
+            if (re_pwd.value != "") {
+                if (re_pwd.value == pwd.value) {
+                    span.innerHTML = '<font color="green">OK</font>';
+                    return true;
+                } else {
+                    span.innerHTML = '<font color="red">两次密码不一致</font>';
+                    return false;
+                }
+            } else {
+                span.innerHTML = '<font color="red">不能为空</font>';
+                return false;
+            }
+        }
+
+
+        function pwdFormat(pwdStr) {
+            if (/\d{6}/.test(pwdStr)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function emailFormat(emailStr) {
+            if (/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(emailStr)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div style="width: 80%;margin: 0 auto;">
+    <form action="#" onsubmit="return checkout()">
+        <table width="60%" border="1px">
+            <tr>
+                <td width="30%">用户名</td>
+                <td><input type="text" id="name"/>
+                    <span id="note1"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">密码</td>
+                <td><input type="password" id="pwd"/>
+                    <span id="note2"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="30%">确定密码</td>
+                <td><input type="password" id="repwd"/>
+                    <span id="note3"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="提交"/>
+                </td>
+                <td>
+                    <button type="reset" value="" id="resetBtn">重置</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+</body>
+</html>
