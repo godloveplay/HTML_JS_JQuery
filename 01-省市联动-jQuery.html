@@ -10,20 +10,23 @@
 
 
         $(function () {
-            $('#select').change(function () {
-                $('#City').get(0).options.length = 1;
-                console.log(this.value);
-                $.each(arr, function (index, element) {
-
-                    console.log(index + '-----' + element);
-                    if (this.value == index) {
-                        console.log("222");
-                        for (var i = 0; i < element.length; i++) {
-                            $('#City').append('<option>' + element[i] + '</option>')
+            $('#select').change(
+                function () {
+                    //将右侧元素转成dom对象 然后将城市数据清空
+                    $('#City').get(0).options.length = 1;
+                    var value = this.value;
+                    //jQuery for循环 写法一
+                    $.each(arr, function (index, element) {
+                            //遍历arr 当传进来的value = index时继续
+                            if (value == index) {
+                                //遍历数组  添加城市信息到 右侧
+                                $.each(element, function (i, e) {
+                                    $('#City').append('<option>' + e + '</option>')
+                                })
+                            }
                         }
-                    }
+                    )
                 })
-            })
         });
 
 
@@ -31,7 +34,7 @@
 </head>
 <body>
 <select id="select">
-    <option value="">--select--</option>
+    <option>--select--</option>
     <option value="0">HuNan</option>
     <option value="1">HuBei</option>
     <option value="2">Guangzhou</option>
