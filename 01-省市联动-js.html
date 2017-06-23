@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        var arr = [["HuNan01", "HuNan02", "HuNan03", "HuNan04"], ["HuBei01", "HuBei02", "HuBei03", "HuBei04"], ["Guangzhou01", "Guangzhou02", "Guangzhou03", "Guangzhou04"]];
+
+        function city(value) {
+            var select2 = document.getElementById('City');
+
+            for (var i = select2.options.length - 1; i > 0; i--) {
+                select2.options[i] = null;
+            }
+//            select2.options.length = 1;
+
+            for (var j = 0; j < arr[value].length; j++) {
+                var newSelect = document.createElement("option");
+                newSelect.setAttribute("value", arr[value][j]);
+                newSelect.appendChild(document.createTextNode(arr[value][j]));
+                select2.appendChild(newSelect);
+            }
+        }
+    </script>
+</head>
+<body>
+<select id="select" onchange="city(this.value)">
+    <option value="">--select--</option>
+    <option value="0">HuNan</option>
+    <option value="1">HuBei</option>
+    <option value="2">Guangzhou</option>
+</select>
+<select id="City">
+    <option>--select--</option>
+</select>
+</body>
+</html>
